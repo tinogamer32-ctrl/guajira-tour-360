@@ -16,7 +16,6 @@
       overflow-x: hidden;
     }
 
-    /* Animaciones de revelado al hacer scroll */
     .anim-reveal {
       opacity: 0;
       transform: translateY(36px) scale(0.97);
@@ -28,7 +27,6 @@
       transform: translateY(0) scale(1);
     }
 
-    /* Movimientos continuos alucinantes */
     @keyframes floatWave {
       0%, 100% { transform: translateY(0px) rotate(0deg); }
       50% { transform: translateY(-12px) rotate(1.2deg); }
@@ -79,7 +77,7 @@
     }
 
     .light-glass {
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(14px);
       color: #0f292e;
     }
@@ -91,7 +89,7 @@
 </head>
 <body class="selection:bg-amber-400 selection:text-teal-950">
 
-  <!-- CANVAS DE PARTÍCULAS BRISA / ESTRELLAS EN MOVIMIENTO -->
+  <!-- CANVAS DE PARTÍCULAS EN MOVIMIENTO -->
   <canvas id="tour-canvas" class="fixed inset-0 z-0 pointer-events-none"></canvas>
 
   <!-- BARRA SUPERIOR DE PROGRESO -->
@@ -127,20 +125,8 @@
     </div>
   </header>
 
-  <!-- A. PÁGINA PRINCIPAL (HOME) CON VIDEO DE FONDO -->
-  <section id="home" class="relative min-h-screen pt-24 pb-16 flex flex-col justify-between overflow-hidden">
-    <video
-      autoplay
-      muted
-      loop
-      playsinline
-      poster="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80"
-      class="absolute inset-0 w-full h-full object-cover opacity-45 scale-105"
-    >
-      <source src="https://assets.mixkit.co/videos/preview/mixkit-waves-in-the-ocean-1164-large.mp4" type="video/mp4" />
-    </video>
-
-    <div class="absolute inset-0 bg-gradient-to-b from-[#041115]/80 via-[#061c22]/60 to-[#061317]"></div>
+  <!-- A. PÁGINA PRINCIPAL (HOME) -->
+  <section id="home" class="relative min-h-screen pt-24 pb-16 flex flex-col justify-between overflow-hidden bg-gradient-to-b from-[#04161b] via-[#07262e] to-[#061317]">
     <div class="absolute -top-20 right-1/4 w-96 h-96 rounded-full bg-amber-400/20 blur-3xl animate-aura pointer-events-none"></div>
     <div class="absolute bottom-10 left-1/4 w-96 h-96 rounded-full bg-teal-400/20 blur-3xl animate-aura pointer-events-none"></div>
 
@@ -173,7 +159,7 @@
             Activar Planificador Animado →
           </a>
           <a href="#multimedia" class="glass-panel hover:border-amber-300/50 text-white px-7 py-4 rounded-full text-sm font-bold transition-all hover:scale-105">
-            Ver Videos y Multimedia
+            Ver Multimedia y Simulación
           </a>
         </div>
       </div>
@@ -197,7 +183,7 @@
       </div>
     </div>
 
-    <!-- Cinta Continua Animada de Destinos y Conceptos -->
+    <!-- Cinta Continua Animada -->
     <div class="relative z-10 border-y border-white/10 bg-black/40 backdrop-blur-md py-3 overflow-hidden">
       <div class="animate-marquee gap-8 text-xs font-bold uppercase tracking-widest text-amber-300">
         <span>✦ Cabo de la Vela</span>
@@ -363,133 +349,121 @@
     </div>
   </section>
 
-  <!-- E. GALERÍA MULTIMEDIA CON MÚLTIPLES VIDEOS EN MOVIMIENTO -->
+  <!-- E. GALERÍA MULTIMEDIA CON VIDEO DE YOUTUBE ACTUALIZADO -->
   <section id="multimedia" class="relative z-10 py-24 bg-[#faf7f2] text-teal-950">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 anim-reveal">
       <span class="text-xs font-black uppercase tracking-widest text-teal-800">04 • Galería Multimedia</span>
       <h2 class="text-3xl sm:text-5xl font-black tracking-tight mt-2">
-        Videos, Paisajes e Infografía
+        Video de YouTube, Animación en Vivo y Fotografía
       </h2>
 
       <div class="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Recurso 1: Video de YouTube Embebido Actualizado + Selector de Video -->
         <div class="bg-white rounded-3xl overflow-hidden border border-stone-200 flex flex-col shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-          <div class="aspect-video bg-teal-950 overflow-hidden relative">
-            <video
-              autoplay
-              muted
-              loop
-              playsinline
-              controls
-              poster="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80"
-              class="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-            >
-              <source src="https://assets.mixkit.co/videos/preview/mixkit-waves-in-the-ocean-1164-large.mp4" type="video/mp4" />
-            </video>
+          <div class="aspect-video bg-black">
+            <iframe
+              id="yt-player"
+              class="w-full h-full"
+              src="https://www.youtube.com/embed/aqz-KE-bpKQ"
+              title="Video de Naturaleza y Conservación en YouTube"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
           </div>
           <div class="p-6 flex-1 flex flex-col justify-between">
             <div>
-              <span class="text-[11px] font-black uppercase text-teal-700">Video 01 • Costa</span>
-              <h3 class="text-lg font-black mt-1">Dinámica Costera y Conservación</h3>
+              <span class="text-[11px] font-black uppercase text-teal-700">Video de YouTube</span>
+              <h3 class="text-lg font-black mt-1">Recurso Audiovisual de Naturaleza</h3>
               <p class="text-sm text-stone-600 mt-2">
-                Video en movimiento que ilustra la riqueza marina y la necesidad de un turismo
-                respetuoso con las playas.
+                Reproductor embebido de YouTube. Si necesitas cambiar de clip durante la exposición,
+                usa estos botones:
               </p>
+              <div class="mt-3 flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  data-yt="aqz-KE-bpKQ"
+                  class="yt-switch px-2.5 py-1 rounded-lg text-[11px] font-bold bg-teal-900 text-white hover:bg-teal-800"
+                >
+                  Clip 1 (Naturaleza)
+                </button>
+                <button
+                  type="button"
+                  data-yt="LXb3EKWsInQ"
+                  class="yt-switch px-2.5 py-1 rounded-lg text-[11px] font-bold bg-stone-200 text-teal-950 hover:bg-stone-300"
+                >
+                  Clip 2 (4K Paisajes)
+                </button>
+              </div>
             </div>
             <p class="mt-4 pt-3 border-t border-stone-100 text-[11px] text-stone-500">
-              <strong>Fuente:</strong> Mixkit Stock Video / Unsplash (referencia multimedia).
+              <strong>Fuente:</strong> YouTube (reproducción embebida de referencia).
             </p>
           </div>
         </div>
 
+        <!-- Recurso 2: Escena Animada Interactiva en Vivo -->
         <div class="bg-white rounded-3xl overflow-hidden border border-stone-200 flex flex-col shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-          <div class="aspect-video bg-stone-950 overflow-hidden relative">
-            <video
-              autoplay
-              muted
-              loop
-              playsinline
-              controls
-              poster="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80"
-              class="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-            >
-              <source src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-forest-and-river-40035-large.mp4" type="video/mp4" />
-            </video>
+          <div class="relative aspect-video bg-teal-950 overflow-hidden">
+            <canvas id="scene-canvas" class="w-full h-full block"></canvas>
+            <div class="absolute bottom-2.5 left-2.5 right-2.5 flex flex-wrap gap-1.5 justify-center">
+              <button type="button" data-scene="costa" class="scene-btn px-2.5 py-1 rounded-lg text-[11px] font-bold bg-amber-400 text-teal-950">
+                Costa y Olas
+              </button>
+              <button type="button" data-scene="sierra" class="scene-btn px-2.5 py-1 rounded-lg text-[11px] font-bold bg-white/15 text-white hover:bg-white/25">
+                Sierra y Río
+              </button>
+              <button type="button" data-scene="noche" class="scene-btn px-2.5 py-1 rounded-lg text-[11px] font-bold bg-white/15 text-white hover:bg-white/25">
+                Desierto Estelar
+              </button>
+            </div>
           </div>
           <div class="p-6 flex-1 flex flex-col justify-between">
             <div>
-              <span class="text-[11px] font-black uppercase text-amber-700">Video 02 • Rutas</span>
-              <h3 class="text-lg font-black mt-1">Exploración y Conectividad Natural</h3>
+              <span class="text-[11px] font-black uppercase text-amber-700">Animación Interactiva en Vivo</span>
+              <h3 class="text-lg font-black mt-1">Simulador de Paisajes de La Guajira</h3>
               <p class="text-sm text-stone-600 mt-2">
-                Recurso audiovisual sobre recorridos naturales y la importancia de planificar
-                traslados responsables.
+                Haz clic sobre los botones para alternar entre costa, sierra y noche estrellada en
+                tiempo real.
               </p>
             </div>
             <p class="mt-4 pt-3 border-t border-stone-100 text-[11px] text-stone-500">
-              <strong>Fuente:</strong> Mixkit Stock Video / Unsplash (referencia multimedia).
+              <strong>Fuente:</strong> Desarrollo propio en HTML5 Canvas — Guajira Tour 360° (2026).
             </p>
           </div>
         </div>
 
-        <div class="bg-white rounded-3xl p-6 border border-stone-200 flex flex-col justify-between shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-          <div>
-            <span class="text-[11px] font-black uppercase text-emerald-700">Infografía Interactiva</span>
-            <h3 class="text-lg font-black mt-1">Pilares del Turismo Inteligente</h3>
-            <p class="text-sm text-stone-600 mt-2">
-              Indicadores visuales del equilibrio entre experiencia del viajero y cuidado del
-              territorio:
-            </p>
-            <div class="mt-5 space-y-4">
-              <div>
-                <div class="flex justify-between text-xs font-bold mb-1">
-                  <span>Sostenibilidad ambiental</span>
-                  <span>92%</span>
-                </div>
-                <div class="w-full h-3 bg-stone-100 rounded-full overflow-hidden">
-                  <div class="bg-emerald-600 h-full w-[92%] rounded-full animate-pulse"></div>
-                </div>
-              </div>
-              <div>
-                <div class="flex justify-between text-xs font-bold mb-1">
-                  <span>Participación comunitaria</span>
-                  <span>85%</span>
-                </div>
-                <div class="w-full h-3 bg-stone-100 rounded-full overflow-hidden">
-                  <div class="bg-amber-500 h-full w-[85%] rounded-full"></div>
-                </div>
-              </div>
-              <div>
-                <div class="flex justify-between text-xs font-bold mb-1">
-                  <span>Claridad de información de ruta</span>
-                  <span>88%</span>
-                </div>
-                <div class="w-full h-3 bg-stone-100 rounded-full overflow-hidden">
-                  <div class="bg-teal-700 h-full w-[88%] rounded-full"></div>
-                </div>
-              </div>
-            </div>
+        <!-- Recurso 3: Fotografía e Indicadores -->
+        <div class="bg-white rounded-3xl overflow-hidden border border-stone-200 flex flex-col shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+          <div class="aspect-video bg-stone-900 overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80"
+              onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80'"
+              alt="Ruta panorámica y conservación"
+              class="w-full h-full object-cover"
+            />
           </div>
-          <p class="mt-4 pt-3 border-t border-stone-100 text-[11px] text-stone-500">
-            <strong>Fuente:</strong> Elaboración propia del grupo del proyecto (2026).
-          </p>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] font-black uppercase text-emerald-700">Fotografía e Indicadores</span>
+              <h3 class="text-lg font-black mt-1">Conservación y Viaje Responsable</h3>
+              <p class="text-sm text-stone-600 mt-2">
+                Cuidado de playas, apoyo a comunidades anfitrionas y planificación ordenada de
+                recorridos.
+              </p>
+            </div>
+            <p class="mt-4 pt-3 border-t border-stone-100 text-[11px] text-stone-500">
+              <strong>Fuente:</strong> Unsplash / Elaboración propia Guajira Tour 360° (2026).
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ELEMENTO INTERACTIVO CON VIDEO DE FONDO: PLANIFICADOR DE RUTA -->
-  <section id="planificador" class="relative z-10 py-24 text-white overflow-hidden">
-    <video
-      autoplay
-      muted
-      loop
-      playsinline
-      class="absolute inset-0 w-full h-full object-cover opacity-25"
-    >
-      <source src="https://assets.mixkit.co/videos/preview/mixkit-clouds-moving-in-the-sky-2346-large.mp4" type="video/mp4" />
-    </video>
-    <div class="absolute inset-0 bg-gradient-to-b from-[#06181d]/90 via-[#06181d]/80 to-[#061317]"></div>
-
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 anim-reveal">
+  <!-- ELEMENTO INTERACTIVO: PLANIFICADOR DE RUTA -->
+  <section id="planificador" class="relative z-10 py-24 text-white bg-gradient-to-b from-[#06181d] to-[#061317]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 anim-reveal">
       <span class="inline-block px-3.5 py-1 rounded-full bg-amber-400/15 border border-amber-300/30 text-amber-300 text-xs font-black uppercase tracking-wider">
         Elemento Interactivo en Vivo
       </span>
@@ -604,20 +578,9 @@
     </div>
   </section>
 
-  <!-- G. SECCIÓN DE INDUSTRIA 4.0 CON VIDEO DE FONDO -->
-  <section id="industria40" class="relative z-10 py-24 text-white overflow-hidden">
-    <video
-      autoplay
-      muted
-      loop
-      playsinline
-      class="absolute inset-0 w-full h-full object-cover opacity-30"
-    >
-      <source src="https://assets.mixkit.co/videos/preview/mixkit-planet-earth-rotating-in-space-21571-large.mp4" type="video/mp4" />
-    </video>
-    <div class="absolute inset-0 bg-gradient-to-b from-[#051519]/90 via-[#051519]/75 to-black"></div>
-
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 anim-reveal">
+  <!-- G. SECCIÓN DE INDUSTRIA 4.0 -->
+  <section id="industria40" class="relative z-10 py-24 text-white bg-gradient-to-b from-[#051519] to-black border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 anim-reveal">
       <span class="text-xs font-black uppercase tracking-widest text-amber-300">06 • Industria 4.0</span>
       <h2 class="text-3xl sm:text-5xl font-black tracking-tight mt-2">
         Tecnologías de Industria 4.0 en el Turismo
@@ -668,7 +631,20 @@
   </footer>
 
   <script>
-    // Partículas flotantes suaves en fondo
+    // Cambiar video de YouTube desde los botones
+    const ytPlayer = document.getElementById('yt-player');
+    document.querySelectorAll('.yt-switch').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const videoId = btn.dataset.yt;
+        ytPlayer.src = `https://www.youtube.com/embed/${videoId}`;
+        document.querySelectorAll('.yt-switch').forEach(b => {
+          b.className = 'yt-switch px-2.5 py-1 rounded-lg text-[11px] font-bold bg-stone-200 text-teal-950 hover:bg-stone-300';
+        });
+        btn.className = 'yt-switch px-2.5 py-1 rounded-lg text-[11px] font-bold bg-teal-900 text-white hover:bg-teal-800';
+      });
+    });
+
+    // Partículas de fondo
     const canvas = document.getElementById('tour-canvas');
     const ctx = canvas.getContext('2d');
     let w, h, dots = [];
@@ -680,13 +656,13 @@
     window.addEventListener('resize', resizeDotCanvas);
     resizeDotCanvas();
 
-    for (let i = 0; i < 42; i++) {
+    for (let i = 0; i < 38; i++) {
       dots.push({
         x: Math.random() * w,
         y: Math.random() * h,
         vx: (Math.random() - 0.5) * 0.4,
         vy: (Math.random() - 0.5) * 0.4,
-        r: Math.random() * 2.2 + 0.8
+        r: Math.random() * 2 + 0.8
       });
     }
 
@@ -705,6 +681,94 @@
       requestAnimationFrame(drawDots);
     }
     drawDots();
+
+    // Escena multimedia interactiva en vivo
+    const sceneCanvas = document.getElementById('scene-canvas');
+    const sCtx = sceneCanvas.getContext('2d');
+    let currentScene = 'costa';
+    let waveTick = 0;
+
+    function resizeSceneCanvas() {
+      const rect = sceneCanvas.parentElement.getBoundingClientRect();
+      sceneCanvas.width = rect.width || 400;
+      sceneCanvas.height = rect.height || 225;
+    }
+    window.addEventListener('resize', resizeSceneCanvas);
+    resizeSceneCanvas();
+
+    document.querySelectorAll('.scene-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentScene = btn.dataset.scene;
+        document.querySelectorAll('.scene-btn').forEach(b => {
+          b.className = 'scene-btn px-2.5 py-1 rounded-lg text-[11px] font-bold bg-white/15 text-white hover:bg-white/25';
+        });
+        btn.className = 'scene-btn px-2.5 py-1 rounded-lg text-[11px] font-bold bg-amber-400 text-teal-950';
+      });
+    });
+
+    function renderScene() {
+      waveTick += 0.04;
+      const sw = sceneCanvas.width;
+      const sh = sceneCanvas.height;
+      sCtx.clearRect(0, 0, sw, sh);
+
+      if (currentScene === 'costa') {
+        sCtx.fillStyle = '#072b36';
+        sCtx.fillRect(0, 0, sw, sh);
+        sCtx.fillStyle = '#fbbf24';
+        sCtx.beginPath();
+        sCtx.arc(sw * 0.78, sh * 0.28, 22, 0, Math.PI * 2);
+        sCtx.fill();
+
+        for (let i = 0; i < 3; i++) {
+          sCtx.beginPath();
+          for (let x = 0; x <= sw; x += 12) {
+            const y = sh * 0.62 + i * 16 + Math.sin(x * 0.025 + waveTick + i) * 7;
+            if (x === 0) sCtx.moveTo(x, y);
+            else sCtx.lineTo(x, y);
+          }
+          sCtx.strokeStyle = i === 0 ? '#5eead4' : '#2dd4bf';
+          sCtx.lineWidth = 2.5;
+          sCtx.stroke();
+        }
+      } else if (currentScene === 'sierra') {
+        sCtx.fillStyle = '#07241b';
+        sCtx.fillRect(0, 0, sw, sh);
+        sCtx.fillStyle = '#134e4a';
+        sCtx.beginPath();
+        sCtx.moveTo(0, sh * 0.72);
+        sCtx.lineTo(sw * 0.35, sh * 0.35);
+        sCtx.lineTo(sw * 0.7, sh * 0.72);
+        sCtx.closePath();
+        sCtx.fill();
+
+        sCtx.beginPath();
+        for (let x = 0; x <= sw; x += 12) {
+          const y = sh * 0.76 + Math.cos(x * 0.03 - waveTick) * 6;
+          if (x === 0) sCtx.moveTo(x, y);
+          else sCtx.lineTo(x, y);
+        }
+        sCtx.strokeStyle = '#34d399';
+        sCtx.lineWidth = 3;
+        sCtx.stroke();
+      } else {
+        sCtx.fillStyle = '#050b18';
+        sCtx.fillRect(0, 0, sw, sh);
+        for (let i = 0; i < 24; i++) {
+          const sx = ((i * 53 + waveTick * 14) % sw);
+          const sy = ((i * 29) % (sh * 0.75));
+          sCtx.fillStyle = i % 2 === 0 ? '#fef08a' : '#7dd3fc';
+          sCtx.beginPath();
+          sCtx.arc(sx, sy, 1.8, 0, Math.PI * 2);
+          sCtx.fill();
+        }
+        sCtx.fillStyle = '#b45309';
+        sCtx.fillRect(0, sh * 0.78, sw, sh * 0.22);
+      }
+
+      requestAnimationFrame(renderScene);
+    }
+    renderScene();
 
     // Progreso de scroll y revelado de secciones
     window.addEventListener('scroll', () => {
@@ -800,7 +864,7 @@
     });
     showTourSys('entradas');
 
-    // Planificador Interactivo con Barra Animada
+    // Planificador Interactivo
     const rDest = document.getElementById('route-dest');
     const rDays = document.getElementById('route-days');
     const rFocus = document.getElementById('route-focus');
