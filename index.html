@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GUAJIRA TOUR 360° | Turismo Inteligente — Universidad de La Guajira</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #061317;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+
+    /* Animaciones de revelado al hacer scroll */
+    .anim-reveal {
+      opacity: 0;
+      transform: translateY(36px) scale(0.97);
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .anim-reveal.is-shown {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Movimientos continuos alucinantes */
+    @keyframes floatWave {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(1.2deg); }
+    }
+
+    @keyframes pulseAura {
+      0%, 100% { opacity: 0.35; transform: scale(1); }
+      50% { opacity: 0.75; transform: scale(1.12); }
+    }
+
+    @keyframes marqueeSlide {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @keyframes spinSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .animate-float-wave {
+      animation: floatWave 5.2s ease-in-out infinite;
+    }
+
+    .animate-aura {
+      animation: pulseAura 4.5s ease-in-out infinite;
+    }
+
+    .animate-marquee {
+      display: flex;
+      width: max-content;
+      animation: marqueeSlide 24s linear infinite;
+    }
+
+    .animate-marquee:hover {
+      animation-play-state: paused;
+    }
+
+    .animate-spin-slow {
+      animation: spinSlow 22s linear infinite;
+    }
+
+    .glass-panel {
+      background: rgba(8, 24, 29, 0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .light-glass {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(14px);
+      color: #0f292e;
+    }
+
+    #top-progress {
+      width: 0%;
+    }
+  </style>
+</head>
+<body class="selection:bg-amber-400 selection:text-teal-950">
+
+  <!-- CANVAS DE PARTÍCULAS BRISA / ESTRELLAS EN MOVIMIENTO -->
+  <canvas id="tour-canvas" class="fixed inset-0 z-0 pointer-events-none"></canvas>
+
+  <!-- BARRA SUPERIOR DE PROGRESO -->
+  <div class="fixed top-0 inset-x-0 z-[60] h-1 bg-white/10">
+    <div id="top-progress" class="h-full bg-gradient-to-r from-amber-400 via-teal-400 to-cyan-300 transition-all duration-100"></div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="fixed top-1 inset-x-0 z-50 h-15 glass-panel">
+    <div class="max-w-7xl mx-auto h-14 px-4 sm:px-6 flex items-center justify-between text-xs">
+      <a href="#home" class="font-black tracking-[0.18em] text-sm text-white flex items-center gap-2.5">
+        <span class="relative flex h-3 w-3">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-amber-400"></span>
+        </span>
+        GUAJIRA <span class="text-teal-300 font-extrabold">TOUR 360°</span>
+      </a>
+
+      <nav class="hidden xl:flex items-center gap-6 text-teal-100/85 font-semibold">
+        <a href="#home" class="hover:text-amber-300 transition-colors">Inicio</a>
+        <a href="#problema" class="hover:text-amber-300 transition-colors">Problema</a>
+        <a href="#innovacion" class="hover:text-amber-300 transition-colors">Innovación</a>
+        <a href="#sistemico" class="hover:text-amber-300 transition-colors">Enfoque Sistémico</a>
+        <a href="#multimedia" class="hover:text-amber-300 transition-colors">Multimedia</a>
+        <a href="#planificador" class="text-amber-300 font-bold hover:text-white transition-colors">Planificador</a>
+        <a href="#metodo" class="hover:text-amber-300 transition-colors">Método Científico</a>
+        <a href="#industria40" class="hover:text-amber-300 transition-colors">Industria 4.0</a>
+      </nav>
+
+      <a href="#planificador" class="bg-amber-400 hover:bg-amber-300 text-teal-950 px-4 py-2 rounded-full font-extrabold transition-all hover:scale-105 shadow-[0_0_20px_rgba(251,191,36,0.45)]">
+        Explorar Ruta
+      </a>
+    </div>
+  </header>
+
+  <!-- A. PÁGINA PRINCIPAL (HOME) CON VIDEO DE FONDO -->
+  <section id="home" class="relative min-h-screen pt-24 pb-16 flex flex-col justify-between overflow-hidden">
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      poster="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80"
+      class="absolute inset-0 w-full h-full object-cover opacity-45 scale-105"
+    >
+      <source src="https://assets.mixkit.co/videos/preview/mixkit-waves-in-the-ocean-1164-large.mp4" type="video/mp4" />
+    </video>
+
+    <div class="absolute inset-0 bg-gradient-to-b from-[#041115]/80 via-[#061c22]/60 to-[#061317]"></div>
+    <div class="absolute -top-20 right-1/4 w-96 h-96 rounded-full bg-amber-400/20 blur-3xl animate-aura pointer-events-none"></div>
+    <div class="absolute bottom-10 left-1/4 w-96 h-96 rounded-full bg-teal-400/20 blur-3xl animate-aura pointer-events-none"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 my-auto py-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-7">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel text-xs font-bold text-amber-300 mb-6">
+          <span>● UNIVERSIDAD DE LA GUAJIRA • INGENIERÍA DE SISTEMAS</span>
+        </div>
+
+        <h1 class="text-5xl sm:text-7xl font-black tracking-tight leading-[1.03]">
+          Guajira Tour
+          <span class="block bg-gradient-to-r from-amber-300 via-yellow-200 to-teal-300 bg-clip-text text-transparent">
+            360° Inteligente
+          </span>
+        </h1>
+
+        <p class="mt-5 text-xl sm:text-2xl text-teal-100 font-semibold">
+          Turismo Sostenible, Movilidad Ordenada y Valoración Territorial en La Guajira
+        </p>
+
+        <p class="mt-5 text-base text-stone-200/90 max-w-2xl leading-relaxed">
+          La diversidad natural y cultural de La Guajira requiere información integrada, rutas
+          responsables y cuidado ambiental. <strong class="text-amber-300">Objetivo de la propuesta:</strong>
+          desarrollar un sitio web interactivo con pensamiento sistémico e Industria 4.0 que
+          oriente recorridos sostenibles y conecte actores del territorio.
+        </p>
+
+        <div class="mt-9 flex flex-wrap gap-4">
+          <a href="#planificador" class="bg-amber-400 hover:bg-amber-300 text-teal-950 px-7 py-4 rounded-full text-sm font-black transition-all hover:scale-105 shadow-[0_0_28px_rgba(251,191,36,0.5)]">
+            Activar Planificador Animado →
+          </a>
+          <a href="#multimedia" class="glass-panel hover:border-amber-300/50 text-white px-7 py-4 rounded-full text-sm font-bold transition-all hover:scale-105">
+            Ver Videos y Multimedia
+          </a>
+        </div>
+      </div>
+
+      <!-- Brújula / Radar de Destinos en Movimiento -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="relative w-72 h-72 sm:w-96 sm:h-96 flex items-center justify-center animate-float-wave">
+          <svg viewBox="0 0 360 360" class="w-full h-full drop-shadow-[0_0_25px_rgba(45,212,191,0.3)]">
+            <g class="animate-spin-slow" style="transform-origin: 180px 180px;">
+              <circle cx="180" cy="180" r="165" fill="none" stroke="rgba(251,191,36,0.35)" stroke-width="2" stroke-dasharray="14 10" />
+              <circle cx="180" cy="15" r="6" fill="#fbbf24" />
+              <circle cx="345" cy="180" r="5" fill="#2dd4bf" />
+            </g>
+            <circle cx="180" cy="180" r="126" fill="rgba(8,28,34,0.8)" stroke="rgba(45,212,191,0.4)" stroke-width="1.5" />
+            <circle cx="180" cy="180" r="88" fill="none" stroke="rgba(251,191,36,0.25)" stroke-width="1" stroke-dasharray="4 6" />
+            <text x="180" y="168" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="800" letter-spacing="3">DESTINOS</text>
+            <text x="180" y="192" text-anchor="middle" fill="#FFFFFF" font-size="22" font-weight="900" letter-spacing="2">LA GUAJIRA</text>
+            <text x="180" y="213" text-anchor="middle" fill="#5eead4" font-size="11" font-weight="700">RUTAS • ECO • 4.0</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cinta Continua Animada de Destinos y Conceptos -->
+    <div class="relative z-10 border-y border-white/10 bg-black/40 backdrop-blur-md py-3 overflow-hidden">
+      <div class="animate-marquee gap-8 text-xs font-bold uppercase tracking-widest text-amber-300">
+        <span>✦ Cabo de la Vela</span>
+        <span>✦ Palomino y Dibulla</span>
+        <span>✦ Riohacha y Camarones</span>
+        <span>✦ Pensamiento Sistémico</span>
+        <span>✦ Método Científico (6 Pasos)</span>
+        <span>✦ Industria 4.0</span>
+        <span>✦ Cabo de la Vela</span>
+        <span>✦ Palomino y Dibulla</span>
+        <span>✦ Riohacha y Camarones</span>
+        <span>✦ Pensamiento Sistémico</span>
+        <span>✦ Método Científico (6 Pasos)</span>
+        <span>✦ Industria 4.0</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- B. SECCIÓN DE ANÁLISIS DEL PROBLEMA -->
+  <section id="problema" class="relative z-10 py-24 bg-[#faf7f2] text-teal-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 anim-reveal">
+      <span class="text-xs font-black uppercase tracking-widest text-teal-800">01 • Análisis del Problema</span>
+      <h2 class="text-3xl sm:text-5xl font-black tracking-tight mt-2">
+        Diagnóstico del Turismo y la Movilidad Territorial
+      </h2>
+      <p class="mt-4 text-base text-stone-600 max-w-3xl leading-relaxed">
+        En La Guajira confluyen playas, desierto, sierra y comunidades culturales, pero la falta de
+        información centralizada y de indicadores de sostenibilidad dificulta planificar rutas
+        seguras y proteger los entornos naturales.
+      </p>
+
+      <div class="mt-10 light-glass border-l-4 border-amber-500 p-6 sm:p-8 rounded-2xl shadow-md transition-transform duration-300 hover:translate-x-1.5">
+        <p class="text-xs font-black uppercase tracking-wider text-amber-700">Pregunta Orientadora</p>
+        <p class="text-lg sm:text-xl font-extrabold text-teal-950 mt-2">
+          ¿Cómo puede una plataforma web de turismo inteligente, apoyada en pensamiento sistémico e
+          Industria 4.0, mejorar la planificación de rutas y la sostenibilidad ambiental en La Guajira?
+        </p>
+      </div>
+
+      <div class="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="light-glass p-7 rounded-3xl border border-stone-200 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+          <h3 class="text-lg font-black text-teal-950">Causas Principales</h3>
+          <ul class="mt-4 space-y-3 text-sm text-stone-600">
+            <li>• Información fragmentada sobre rutas, condiciones de acceso y servicios locales.</li>
+            <li>• Poca visibilidad sobre buenas prácticas ambientales y capacidad de carga en destinos.</li>
+            <li>• Baja articulación digital entre viajeros, guías y prestadores locales.</li>
+          </ul>
+        </div>
+
+        <div class="bg-teal-950 text-white p-7 rounded-3xl flex flex-col justify-between shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+          <div>
+            <span class="text-xs uppercase tracking-widest text-amber-300 font-extrabold">Problema Central</span>
+            <h3 class="text-xl font-bold mt-2">
+              Planificación turística poco informada y presión sobre destinos sensibles
+            </h3>
+            <p class="mt-3 text-sm text-teal-100/90 leading-relaxed">
+              Sin un sistema integrado de apoyo, los recorridos pueden resultar improvisados y
+              generar mayor impacto ambiental o congestión en puntos específicos.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/15 text-xs text-teal-200">
+            <strong class="text-amber-300">Población Beneficiada:</strong> Viajeros, comunidades
+            locales, operadores turísticos y estudiantes de La Guajira.
+          </div>
+        </div>
+
+        <div class="light-glass p-7 rounded-3xl border border-stone-200 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+          <h3 class="text-lg font-black text-teal-950">Consecuencias e Importancia</h3>
+          <ul class="mt-4 space-y-3 text-sm text-stone-600">
+            <li>• Riesgo de residuos y desgaste en ecosistemas costeros y de alta montaña.</li>
+            <li>• Experiencias de viaje menos organizadas o con menor aprovechamiento local.</li>
+            <li>• <strong class="text-teal-950">Importancia:</strong> Impulsa un turismo ordenado, inclusivo y sostenible.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- C. SECCIÓN DE INNOVACIÓN -->
+  <section id="innovacion" class="relative z-10 py-24 bg-[#07191e] text-white border-y border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 anim-reveal">
+      <span class="text-xs font-black uppercase tracking-widest text-amber-300">02 • Innovación</span>
+      <h2 class="text-3xl sm:text-5xl font-black tracking-tight mt-2">
+        Itinerario Dinámico y Semáforo Ecológico
+      </h2>
+      <p class="mt-4 text-base text-teal-100/80 max-w-3xl">
+        Guajira Tour 360° combina animaciones interactivas, visualización sistémica y un
+        planificador de rutas que adapta sugerencias según duración, destino y enfoque sostenible.
+      </p>
+
+      <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="glass-panel p-8 rounded-3xl transition-all duration-300 hover:-translate-y-2 hover:border-amber-300/50">
+          <span class="inline-block px-3 py-1 rounded-full bg-amber-400/15 text-amber-300 text-xs font-extrabold mb-4">
+            DINÁMICA 01
+          </span>
+          <h3 class="text-xl font-extrabold">Recomendación por Perfil</h3>
+          <p class="text-sm text-teal-100/80 mt-2 leading-relaxed">
+            Ajusta el itinerario y las recomendaciones según los días disponibles y el enfoque
+            ecológico, cultural o de descanso.
+          </p>
+        </div>
+
+        <div class="glass-panel p-8 rounded-3xl transition-all duration-300 hover:-translate-y-2 hover:border-teal-300/50">
+          <span class="inline-block px-3 py-1 rounded-full bg-teal-400/15 text-teal-300 text-xs font-extrabold mb-4">
+            DINÁMICA 02
+          </span>
+          <h3 class="text-xl font-extrabold">Indicador de Sostenibilidad</h3>
+          <p class="text-sm text-teal-100/80 mt-2 leading-relaxed">
+            Muestra un índice visual de alineación sostenible y pautas concretas para cuidar el
+            entorno y las comunidades.
+          </p>
+        </div>
+
+        <div class="glass-panel p-8 rounded-3xl transition-all duration-300 hover:-translate-y-2 hover:border-cyan-300/50">
+          <span class="inline-block px-3 py-1 rounded-full bg-cyan-400/15 text-cyan-300 text-xs font-extrabold mb-4">
+            DINÁMICA 03
+          </span>
+          <h3 class="text-xl font-extrabold">Modelo Sistémico Interactivo</h3>
+          <p class="text-sm text-teal-100/80 mt-2 leading-relaxed">
+            Permite inspeccionar entradas, procesos, salidas, componentes y entorno de forma clara e
+            interactiva.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- D. SECCIÓN DE ENFOQUE SISTÉMICO -->
+  <section id="sistemico" class="relative z-10 py-24 bg-teal-950 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 anim-reveal">
+      <span class="text-xs font-black uppercase tracking-widest text-amber-300">03 • Enfoque Sistémico</span>
+      <h2 class="text-3xl sm:text-5xl font-black tracking-tight mt-2">
+        Modelo Sistémico de Guajira Tour 360°
+      </h2>
+      <p class="mt-4 text-teal-100/80 max-w-2xl">
+        Haz clic en cada bloque para ver cómo funciona el sistema y su interacción con el entorno.
+      </p>
+
+      <div class="mt-10 grid grid-cols-2 sm:grid-cols-5 gap-3" id="tour-sys-tabs">
+        <button data-t="entradas" class="tsys-btn p-4 rounded-2xl bg-amber-400 text-teal-950 font-black text-left transition-all scale-[1.02] shadow-lg">
+          <span class="text-[10px] uppercase tracking-wider block opacity-80">01</span>
+          <span class="text-sm sm:text-base mt-1 block">Entradas</span>
+        </button>
+        <button data-t="procesos" class="tsys-btn p-4 rounded-2xl glass-panel text-white hover:border-amber-300/50 font-bold text-left transition-all">
+          <span class="text-[10px] uppercase tracking-wider block opacity-70">02</span>
+          <span class="text-sm sm:text-base mt-1 block">Procesos</span>
+        </button>
+        <button data-t="salidas" class="tsys-btn p-4 rounded-2xl glass-panel text-white hover:border-amber-300/50 font-bold text-left transition-all">
+          <span class="text-[10px] uppercase tracking-wider block opacity-70">03</span>
+          <span class="text-sm sm:text-base mt-1 block">Salidas</span>
+        </button>
+        <button data-t="componentes" class="tsys-btn p-4 rounded-2xl glass-panel text-white hover:border-amber-300/50 font-bold text-left transition-all">
+          <span class="text-[10px] uppercase tracking-wider block opacity-70">04</span>
+          <span class="text-sm sm:text-base mt-1 block">Componentes</span>
+        </button>
+        <button data-t="entorno" class="tsys-btn p-4 rounded-2xl glass-panel text-white hover:border-amber-300/50 font-bold text-left transition-all">
+          <span class="text-[10px] uppercase tracking-wider block opacity-70">05</span>
+          <span class="text-sm sm:text-base mt-1 block">Entorno</span>
+        </button>
+      </div>
+
+      <div id="tour-sys-box" class="mt-6 glass-panel rounded-3xl p-8 border border-amber-300/25"></div>
+    </div>
+  </section>
+
+  <!-- E. GALERÍA MULTIMEDIA CON MÚLTIPLES VIDEOS EN MOVIMIENTO -->
+  <section id="multimedia" class="relative z-10 py-24 bg-[#faf7f2] text-teal-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 anim-reveal">
+      <span class="text-xs font-black uppercase tracking-widest text-teal-800">04 • Galería Multimedia</span>
+      <h2 class="text-3xl sm:text-5xl font-black tracking-tight mt-2">
+        Videos, Paisajes e Infografía
+      </h2>
+
+      <div class="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-3xl overflow-hidden border border-stone-200 flex flex-col shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+          <div class="aspect-video bg-teal-950 overflow-hidden relative">
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              controls
+              poster="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80"
+              class="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+            >
+              <source src="https://assets.mixkit.co/videos/preview/mixkit-waves-in-the-ocean-1164-large.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] font-black uppercase text-teal-700">Video 01 • Costa</span>
+              <h3 class="text-lg font-black mt-1">Dinámica Costera y Conservación</h3>
+              <p class="text-sm text-stone-600 mt-2">
+                Video en movimiento que ilustra la riqueza marina y la necesidad de un turismo
+                respetuoso con las playas.
+              </p>
+            </div>
+            <p class="mt-4 pt-3 border-t border-stone-100 text-[11px] text-stone-500">
+              <strong>Fuente:</strong> Mixkit Stock Video / Unsplash (referencia multimedia).
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl overflow-hidden border border-stone-200 flex flex-col shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+          <div class="aspect-video bg-stone-950 overflow-hidden relative">
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              controls
+              poster="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80"
+              class="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+            >
+              <source src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-forest-and-river-40035-large.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] font-black uppercase text-amber-700">Video 02 • Rutas</span>
+              <h3 class="text-lg font-black mt-1">Exploración y Conectividad Natural</h3>
+              <p class="text-sm text-stone-600 mt-2">
+                Recurso audiovisual sobre recorridos naturales y la importancia de planificar
+                traslados responsables.
+              </p>
+            </div>
+            <p class="mt-4 pt-3 border-t border-stone-100 text-[11px] text-stone-500">
+              <strong>Fuente:</strong> Mixkit Stock Video / Unsplash (referencia multimedia).
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-6 border border-stone-200 flex flex-col justify-between shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+          <div>
+            <span class="text-[11px] font-black uppercase text-emerald-700">Infografía Interactiva</span>
+            <h3 class="text-lg font-black mt-1">Pilares del Turismo Inteligente</h3>
+            <p class="text-sm text-stone-600 mt-2">
+              Indicadores visuales del equilibrio entre experiencia del viajero y cuidado del
+              territorio:
+            </p>
+            <div class="mt-5 space-y-4">
+              <div>
+                <div class="flex justify-between text-xs font-bold mb-1">
+                  <span>Sostenibilidad ambiental</span>
+                  <span>92%</span>
+                </div>
+                <div class="w-full h-3 bg-stone-100 rounded-full overflow-hidden">
+                  <div class="bg-emerald-600 h-full w-[92%] rounded-full animate-pulse"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs font-bold mb-1">
+                  <span>Participación comunitaria</span>
+                  <span>85%</span>
+                </div>
+                <div class="w-full h-3 bg-stone-100 rounded-full overflow-hidden">
+                  <div class="bg-amber-500 h-full w-[85%] rounded-full"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs font-bold mb-1">
+                  <span>Claridad de información de ruta</span>
+                  <span>88%</span>
+                </div>
+                <div class="w-full h-3 bg-stone-100 rounded-full overflow-hidden">
+                  <div class="bg-teal-700 h-full w-[88%] rounded-full"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="mt-4 pt-3 border-t border-stone-100 text-[11px] text-stone-500">
+            <strong>Fuente:</strong> Elaboración propia del grupo del proyecto (2026).
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ELEMENTO INTERACTIVO CON VIDEO DE FONDO: PLANIFICADOR DE RUTA -->
+  <section id="planificador" class="relative z-10 py-24 text-white overflow-hidden">
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      class="absolute inset-0 w-full h-full object-cover opacity-25"
+    >
+      <source src="https://assets.mixkit.co/videos/preview/mixkit-clouds-moving-in-the-sky-2346-large.mp4" type="video/mp4" />
+    </video>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#06181d]/90 via-[#06181d]/80 to-[#061317]"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 anim-reveal">
+      <span class="inline-block px-3.5 py-1 rounded-full bg-amber-400/15 border border-amber-300/30 text-amber-300 text-xs font-black uppercase tracking-wider">
+        Elemento Interactivo en Vivo
+      </span>
+      <h2 class="text-3xl sm:text-5xl font-black tracking-tight mt-3">
+        Planificador de Ruta Turística Inteligente
+      </h2>
+      <p class="mt-3 text-base text-teal-100/80 max-w-2xl">
+        Cambia el destino, los días de viaje o el enfoque para ver cómo se actualiza en tiempo
+        real la recomendación y el medidor de sostenibilidad.
+      </p>
+
+      <div class="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-6 glass-panel rounded-3xl p-6 sm:p-8 space-y-5">
+          <div>
+            <label class="text-xs font-black uppercase text-amber-300">Destino en La Guajira</label>
+            <select id="route-dest" class="mt-1.5 w-full rounded-2xl border border-white/20 bg-black/50 text-white px-4 py-3 text-sm font-semibold focus:outline-none focus:border-amber-400">
+              <option value="Cabo de la Vela">Cabo de la Vela (Alta Guajira)</option>
+              <option value="Palomino y Dibulla">Palomino y Dibulla (Sierra y Costa)</option>
+              <option value="Riohacha y Camarones">Riohacha y Camarones (Flamingo y Malecón)</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-black uppercase text-teal-200">Duración del Viaje</label>
+              <select id="route-days" class="mt-1.5 w-full rounded-2xl border border-white/20 bg-black/50 text-white px-4 py-3 text-sm font-semibold focus:outline-none focus:border-amber-400">
+                <option value="1">1 día</option>
+                <option value="2" selected>2 días</option>
+                <option value="3">3 días o más</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="text-xs font-black uppercase text-teal-200">Enfoque del Viajero</label>
+              <select id="route-focus" class="mt-1.5 w-full rounded-2xl border border-white/20 bg-black/50 text-white px-4 py-3 text-sm font-semibold focus:outline-none focus:border-amber-400">
+                <option value="eco" selected>Ecológico y Comunitario</option>
+                <option value="cultural">Cultural y Gastronómico</option>
+                <option value="descanso">Descanso y Playa</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div id="route-result" class="lg:col-span-6 glass-panel rounded-3xl p-7 sm:p-8 border border-amber-300/30 shadow-2xl"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- F. SECCIÓN DE MÉTODO CIENTÍFICO -->
+  <section id="metodo" class="relative z-10 py-24 bg-[#faf7f2] text-teal-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 anim-reveal">
+      <span class="text-xs font-black uppercase tracking-widest text-teal-800">05 • Método Científico</span>
+      <h2 class="text-3xl sm:text-5xl font-black tracking-tight mt-2">
+        Los 6 Pasos Aplicados al Proyecto
+      </h2>
+
+      <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="p-7 rounded-3xl bg-white border border-stone-200 shadow-sm transition-all duration-300 hover:-translate-y-1.5">
+          <span class="text-2xl font-black text-amber-600">01</span>
+          <h3 class="text-lg font-extrabold mt-2">Observación</h3>
+          <p class="text-sm text-stone-600 mt-2 leading-relaxed">
+            Identificación de dispersión de información turística y necesidad de orientar prácticas
+            más sostenibles en La Guajira.
+          </p>
+        </div>
+
+        <div class="p-7 rounded-3xl bg-white border border-stone-200 shadow-sm transition-all duration-300 hover:-translate-y-1.5">
+          <span class="text-2xl font-black text-amber-600">02</span>
+          <h3 class="text-lg font-extrabold mt-2">Planteamiento del Problema</h3>
+          <p class="text-sm text-stone-600 mt-2 leading-relaxed">
+            Definición de cómo un sitio web interactivo puede integrar datos de ruta y criterios
+            ambientales para mejorar la planificación.
+          </p>
+        </div>
+
+        <div class="p-7 rounded-3xl bg-white border border-stone-200 shadow-sm transition-all duration-300 hover:-translate-y-1.5">
+          <span class="text-2xl font-black text-amber-600">03</span>
+          <h3 class="text-lg font-extrabold mt-2">Formulación de Hipótesis</h3>
+          <p class="text-sm text-stone-600 mt-2 leading-relaxed">
+            Si se ofrece un modelo sistémico visual y un planificador dinámico, se facilita organizar
+            recorridos responsables y comprender el sistema.
+          </p>
+        </div>
+
+        <div class="p-7 rounded-3xl bg-white border border-stone-200 shadow-sm transition-all duration-300 hover:-translate-y-1.5">
+          <span class="text-2xl font-black text-teal-800">04</span>
+          <h3 class="text-lg font-extrabold mt-2">Experimentación</h3>
+          <p class="text-sm text-stone-600 mt-2 leading-relaxed">
+            Construcción del prototipo web y prueba de diferentes escenarios de destino, duración y
+            enfoque de viaje.
+          </p>
+        </div>
+
+        <div class="p-7 rounded-3xl bg-white border border-stone-200 shadow-sm transition-all duration-300 hover:-translate-y-1.5">
+          <span class="text-2xl font-black text-teal-800">05</span>
+          <h3 class="text-lg font-extrabold mt-2">Análisis de Resultados</h3>
+          <p class="text-sm text-stone-600 mt-2 leading-relaxed">
+            Revisión de la navegación, claridad visual, dinamismo de las animaciones y pertinencia de
+            las recomendaciones.
+          </p>
+        </div>
+
+        <div class="p-7 rounded-3xl bg-white border border-stone-200 shadow-sm transition-all duration-300 hover:-translate-y-1.5">
+          <span class="text-2xl font-black text-teal-800">06</span>
+          <h3 class="text-lg font-extrabold mt-2">Conclusiones</h3>
+          <p class="text-sm text-stone-600 mt-2 leading-relaxed">
+            La Ingeniería de Sistemas permite articular diseño web, pensamiento sistémico e Industria
+            4.0 para impulsar turismo sostenible.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- G. SECCIÓN DE INDUSTRIA 4.0 CON VIDEO DE FONDO -->
+  <section id="industria40" class="relative z-10 py-24 text-white overflow-hidden">
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      class="absolute inset-0 w-full h-full object-cover opacity-30"
+    >
+      <source src="https://assets.mixkit.co/videos/preview/mixkit-planet-earth-rotating-in-space-21571-large.mp4" type="video/mp4" />
+    </video>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#051519]/90 via-[#051519]/75 to-black"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 anim-reveal">
+      <span class="text-xs font-black uppercase tracking-widest text-amber-300">06 • Industria 4.0</span>
+      <h2 class="text-3xl sm:text-5xl font-black tracking-tight mt-2">
+        Tecnologías de Industria 4.0 en el Turismo
+      </h2>
+
+      <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="p-6 rounded-3xl glass-panel transition-all duration-300 hover:-translate-y-2 hover:border-amber-300/50">
+          <h3 class="text-lg font-bold text-amber-300">Internet de las Cosas (IoT)</h3>
+          <p class="text-sm text-teal-100/80 mt-2 leading-relaxed">
+            Sensores ambientales y de movilidad para monitorear condiciones del entorno y flujo de
+            visitantes.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-3xl glass-panel transition-all duration-300 hover:-translate-y-2 hover:border-teal-300/50">
+          <h3 class="text-lg font-bold text-teal-300">Big Data y Analítica</h3>
+          <p class="text-sm text-teal-100/80 mt-2 leading-relaxed">
+            Análisis de datos de movilidad y temporadas para distribuir mejor los recorridos y evitar
+            saturación.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-3xl glass-panel transition-all duration-300 hover:-translate-y-2 hover:border-emerald-300/50">
+          <h3 class="text-lg font-bold text-emerald-300">Inteligencia Artificial</h3>
+          <p class="text-sm text-teal-100/80 mt-2 leading-relaxed">
+            Recomendaciones adaptativas según perfil del viajero, tiempos y criterios de cuidado
+            ambiental.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-3xl glass-panel transition-all duration-300 hover:-translate-y-2 hover:border-cyan-300/50">
+          <h3 class="text-lg font-bold text-cyan-300">Computación en la Nube</h3>
+          <p class="text-sm text-teal-100/80 mt-2 leading-relaxed">
+            Disponibilidad web continua y publicación gratuita en plataformas como GitHub Pages o
+            Netlify.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="relative z-10 bg-black text-stone-400 py-10 border-t border-white/10 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="font-bold text-white tracking-wider">GUAJIRA TOUR 360° • Ingeniería de Sistemas</p>
+      <p>Universidad de La Guajira • Ing. Mg. Rafael E. Griego Barros</p>
+    </div>
+  </footer>
+
+  <script>
+    // Partículas flotantes suaves en fondo
+    const canvas = document.getElementById('tour-canvas');
+    const ctx = canvas.getContext('2d');
+    let w, h, dots = [];
+
+    function resizeDotCanvas() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeDotCanvas);
+    resizeDotCanvas();
+
+    for (let i = 0; i < 42; i++) {
+      dots.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 2.2 + 0.8
+      });
+    }
+
+    function drawDots() {
+      ctx.clearRect(0, 0, w, h);
+      dots.forEach(d => {
+        d.x += d.vx;
+        d.y += d.vy;
+        if (d.x < 0 || d.x > w) d.vx *= -1;
+        if (d.y < 0 || d.y > h) d.vy *= -1;
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(251, 191, 36, 0.35)';
+        ctx.fill();
+      });
+      requestAnimationFrame(drawDots);
+    }
+    drawDots();
+
+    // Progreso de scroll y revelado de secciones
+    window.addEventListener('scroll', () => {
+      const top = window.scrollY;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      document.getElementById('top-progress').style.width = (total > 0 ? (top / total) * 100 : 0) + '%';
+    });
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add('is-shown');
+        });
+      },
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.anim-reveal').forEach((el) => obs.observe(el));
+
+    // Modelo Sistémico Interactivo
+    const tourSystem = {
+      entradas: {
+        title: 'Entradas del Sistema',
+        desc: 'Datos iniciales suministrados por el usuario y características del destino.',
+        items: [
+          'Destino seleccionado, días de estancia y enfoque del viaje.',
+          'Condiciones de acceso, distancia y disponibilidad local.',
+          'Criterios de sostenibilidad y cuidado ambiental.',
+          'Preferencias culturales o de descanso del visitante.'
+        ]
+      },
+      procesos: {
+        title: 'Procesos de Transformación',
+        desc: 'Lógica que evalúa los parámetros ingresados y arma la sugerencia de ruta.',
+        items: [
+          'Filtrado de opciones según duración y perfil del viajero.',
+          'Evaluación de buenas prácticas ambientales y comunitarias.',
+          'Organización de recomendaciones prácticas de itinerario.',
+          'Cálculo de nivel de alineación sostenible.'
+        ]
+      },
+      salidas: {
+        title: 'Salidas del Sistema',
+        desc: 'Información clara y útil entregada para planificar el recorrido.',
+        items: [
+          'Propuesta de itinerario adaptada al destino y días elegidos.',
+          'Recomendaciones clave de cuidado ambiental y movilidad.',
+          'Indicador de sostenibilidad del plan sugerido.',
+          'Guía rápida para una experiencia ordenada.'
+        ]
+      },
+      componentes: {
+        title: 'Componentes del Sistema',
+        desc: 'Partes técnicas y actores que conforman la plataforma.',
+        items: [
+          'Interfaz web interactiva con navegación por secciones.',
+          'Módulo planificador de rutas y modelo sistémico.',
+          'Recursos multimedia con citación de fuentes.',
+          'Viajeros, guías, prestadores de servicios y estudiantes.'
+        ]
+      },
+      entorno: {
+        title: 'Interacción con el Entorno',
+        desc: 'Relación con la sociedad, la economía local y los ecosistemas de La Guajira.',
+        items: [
+          'Comunidades anfitrionas, prestadores turísticos y visitantes.',
+          'Ecosistemas desérticos, costeros y de sierra en la región.',
+          'Normativa y buenas prácticas de turismo sostenible.',
+          'Retroalimentación continua del entorno.'
+        ]
+      }
+    };
+
+    const tBtns = document.querySelectorAll('.tsys-btn');
+    const tBox = document.getElementById('tour-sys-box');
+
+    function showTourSys(key) {
+      const d = tourSystem[key];
+      tBox.innerHTML = `
+        <h3 class="text-2xl font-black text-amber-300">${d.title}</h3>
+        <p class="text-sm text-teal-100/80 mt-1">${d.desc}</p>
+        <ul class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3.5">
+          ${d.items.map(i => `<li class="bg-black/40 border border-white/10 rounded-2xl p-4 text-sm text-stone-100 transition-transform duration-200 hover:translate-x-1">▸ ${i}</li>`).join('')}
+        </ul>
+      `;
+    }
+
+    tBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tBtns.forEach(b => b.className = 'tsys-btn p-4 rounded-2xl glass-panel text-white hover:border-amber-300/50 font-bold text-left transition-all');
+        btn.className = 'tsys-btn p-4 rounded-2xl bg-amber-400 text-teal-950 font-black text-left transition-all scale-[1.02] shadow-lg';
+        showTourSys(btn.dataset.t);
+      });
+    });
+    showTourSys('entradas');
+
+    // Planificador Interactivo con Barra Animada
+    const rDest = document.getElementById('route-dest');
+    const rDays = document.getElementById('route-days');
+    const rFocus = document.getElementById('route-focus');
+    const rOut = document.getElementById('route-result');
+
+    function updateRoute() {
+      const dest = rDest.value;
+      const days = Number(rDays.value);
+      const focus = rFocus.value;
+
+      const focusLabel = focus === 'eco'
+        ? 'Ecológico y Comunitario'
+        : focus === 'cultural'
+        ? 'Cultural y Gastronómico'
+        : 'Descanso y Playa';
+
+      const tip = focus === 'eco'
+        ? 'Prioriza guías locales, lleva cantimplora reutilizable y evita dejar residuos en senderos o playas.'
+        : focus === 'cultural'
+        ? 'Conoce tradiciones, artesanías y gastronomía local respetando los tiempos de la comunidad.'
+        : 'Planifica traslados en horarios adecuados y respeta las zonas de conservación costera.';
+
+      const score = days === 3 ? 95 : days === 2 ? 90 : 82;
+
+      rOut.innerHTML = `
+        <div class="flex items-center justify-between text-xs text-teal-200 border-b border-white/15 pb-3">
+          <span class="font-extrabold uppercase tracking-wider text-amber-300">Itinerario Dinámico</span>
+          <span class="px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 font-bold">${days} ${days === 1 ? 'día' : 'días'}</span>
+        </div>
+        <h3 class="text-2xl font-black mt-4 text-white">${dest}</h3>
+        <p class="text-xs text-teal-200 mt-1">Enfoque: <strong>${focusLabel}</strong></p>
+
+        <div class="mt-5">
+          <div class="flex justify-between text-xs font-bold mb-1.5">
+            <span class="text-teal-200">Índice de Sostenibilidad del Plan</span>
+            <span class="text-amber-300 font-black">${score} / 100</span>
+          </div>
+          <div class="w-full h-3 bg-white/10 rounded-full overflow-hidden">
+            <div class="bg-gradient-to-r from-teal-400 to-amber-300 h-full rounded-full transition-all duration-500" style="width: ${score}%"></div>
+          </div>
+        </div>
+
+        <p class="mt-5 text-sm text-stone-100 leading-relaxed bg-black/35 p-4 rounded-2xl border border-white/10">
+          <strong>Recomendación del sistema:</strong> ${tip}
+        </p>
+      `;
+    }
+
+    [rDest, rDays, rFocus].forEach(el => el.addEventListener('change', updateRoute));
+    updateRoute();
+  </script>
+</body>
+</html>
